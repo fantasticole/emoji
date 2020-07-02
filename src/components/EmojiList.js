@@ -9,12 +9,10 @@ class EmojiList extends React.Component {
     return (
       <div className="list">
         {this.props.emoji.map(({character, slug, unicodeName}) => (
-          <button
-            title={unicodeName}
-            className="emoji"
-            key={slug}
-            onClick={() => this.copyEmoji(character)}
-          >
+          <button title={unicodeName}
+                  className="emoji"
+                  key={slug}
+                  onClick={() => this.copyEmoji(character)}>
             {character}
           </button>
         ))}

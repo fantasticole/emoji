@@ -14,13 +14,13 @@ class Search extends React.Component {
   render() {
     return (
       <div className="search">
-        <input
-	        onChange={this.props.onSearch}
-	        placeholder="search for something..."
-	        ref={this.inputRef}
-        >
+        <input onChange={this.props.onSearch}
+		       placeholder="search for something..."
+		       ref={this.inputRef}>
         </input>
-        <button className="clear" onClick={this.clearSearch}>✕</button>
+        <button className="clear"
+		        title="clear search"
+		        onClick={this.clearSearch}>✕</button>
       </div>
     );
 	}
