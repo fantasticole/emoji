@@ -7,7 +7,7 @@ class EmojiList extends React.Component {
 
   render() {
     return (
-      <div id="list">
+      <div className="list">
         {this.props.emoji.map(({character, slug, unicodeName}) => (
           <button
             title={unicodeName}
