@@ -1,6 +1,11 @@
+body {
+  margin: 0;
+}
+
 .app {
   font-size: 16px;
   font-family: monospace;
+  padding: 10px;
 
   h1 {
     font-size: 2.5em;
@@ -51,28 +56,55 @@
 
   .list {
     margin-top: 1em;
+  }
 
-    button {
-      align-content: center;
-      background: transparent;
+  .emoji {
+    align-content: center;
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+    display: inline-block;;
+    font-size: 1.8em;
+    height: 2em;
+    justify-content: center;
+    padding: 0 0 0 3px;
+    position: relative;
+    width: 2em;
+
+    &:active,
+    &:focus {
+      background: #e6e6e6;
       border: none;
-      border-radius: 4px;
-      display: inline-block;;
-      font-size: 1.8em;
-      height: 2em;
-      justify-content: center;
-      padding: 0 0 0 3px;
-      width: 2em;
+      outline: none;
+    }
 
-      &:active,
-      &:focus {
-        background: #e6e6e6;
-        border: none;
-        outline: none;
-      }
+    &:hover {
+      background: #e6e6e6;
+    }
+  }
 
-      &:hover {
-        background: #e6e6e6;
+  .selection {
+    background: #000;
+    bottom: 0;
+    left: 0;
+    height: 3.5em;
+    padding: 0 10px;
+    position: fixed;
+    width: 100vw;
+
+    button:hover {
+      background: transparent;
+
+      &:after {
+        color: #fff;
+        content: "✕";
+        font-size: 1.5em;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        text-shadow: 0px 0px 3px #000;
+        width: 100%;
       }
     }
   }

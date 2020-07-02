@@ -5,8 +5,8 @@ class Selection extends React.Component {
     return (
       <div className="selection">
         {this.props.selected.map(({character, slug, unicodeName}, i) => (
-          <button title={unicodeName}
-                  className="selected"
+          <button title={`delete ${unicodeName} from selected group`}
+                  className="emoji"
                   key={slug}
                   onClick={() => this.props.removeEmoji(i)}>
             {character}
