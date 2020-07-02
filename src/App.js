@@ -39,21 +39,33 @@ class App extends React.Component {
     fetch(searchUrl)
       .then(res => res.json())
       .then(
-        (emojiList) => {
-          this.setState({emojiList});
+        (list) => {
+          this.setState({
+            search: value,
+            emojiList: list ? list : [],
+          });
         },
         (error) => {
-          this.setState({error});
+          this.setState({
+            search: value,
+            error,
+          });
         }
       )
   }
 
   render() {
+    const {emojiList, search} = this.state;
+
     return (
       <div className="app">
         <h1>Emoji List</h1>
         <Search onSearch={this.searchList}/>
-        <EmojiList emoji={this.state.emojiList} />
+        {
+          emojiList.length ?
+          <EmojiList emoji={emojiList} /> :
+          <p>No results for "{search}"</p>
+        }
       </div>
     );
   }
