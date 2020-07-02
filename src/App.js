@@ -4,6 +4,7 @@ import './styles/index.css';
 
 import EmojiList from './components/EmojiList';
 import Search from './components/Search';
+import Selection from './components/Selection';
 
 import {EMOJI_API_KEY} from './utils/key';
 
@@ -59,8 +60,20 @@ class App extends React.Component {
       )
   }
 
-  addToSelection = (character) => {
-    this.setState(({selected}) => ({ selected: [...selected, character] }));
+  addToSelection = (emoji) => {
+    this.setState(({selected}) => ({
+      selected: [...selected, emoji],
+    }));
+  }
+
+  removeFromSelection = (index) => {
+    this.setState(({selected}) => {
+      const newSelection = [...selected];
+
+      newSelection.splice(index, 1);
+
+      return { selected: newSelection };
+    });
   }
 
   render() {
@@ -75,6 +88,7 @@ class App extends React.Component {
           <EmojiList emoji={emojiList} onSelect={this.addToSelection}/> :
           <p>No results for "{search}"</p>
         }
+        <Selection selected={selected} removeEmoji={this.removeFromSelection}/>
       </div>
     );
   }

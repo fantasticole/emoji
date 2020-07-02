@@ -1,20 +1,20 @@
 import React from 'react';
 
 class EmojiList extends React.Component {
-  selectEmoji = (char) => {
-    navigator.clipboard.writeText(char);
-    this.props.onSelect(char);
+  selectEmoji = (emoji) => {
+    navigator.clipboard.writeText(emoji.character);
+    this.props.onSelect(emoji);
   }
 
   render() {
     return (
       <div className="list">
-        {this.props.emoji.map(({character, slug, unicodeName}) => (
-          <button title={unicodeName}
+        {this.props.emoji.map((e) => (
+          <button title={e.unicodeName}
                   className="emoji"
-                  key={slug}
-                  onClick={() => this.selectEmoji(character)}>
-            {character}
+                  key={e.slug}
+                  onClick={() => this.selectEmoji(e)}>
+            {e.character}
           </button>
         ))}
       </div>
