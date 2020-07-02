@@ -14,6 +14,7 @@ class App extends React.Component {
     this.state = {
       emojiList: [],
       error: "",
+      selected: [],
     };
   }
 
@@ -58,8 +59,12 @@ class App extends React.Component {
       )
   }
 
+  addToSelection = (character) => {
+    this.setState(({selected}) => ({ selected: [...selected, character] }));
+  }
+
   render() {
-    const {emojiList, search} = this.state;
+    const {emojiList, search, selected} = this.state;
 
     return (
       <div className="app">
@@ -67,7 +72,7 @@ class App extends React.Component {
         <Search onSearch={this.searchList} onClear={this.fetchAllEmoji}/>
         {
           emojiList.length ?
-          <EmojiList emoji={emojiList} /> :
+          <EmojiList emoji={emojiList} onSelect={this.addToSelection}/> :
           <p>No results for "{search}"</p>
         }
       </div>

@@ -1,8 +1,9 @@
 import React from 'react';
 
 class EmojiList extends React.Component {
-  copyEmoji = (char) => {
+  selectEmoji = (char) => {
     navigator.clipboard.writeText(char);
+    this.props.onSelect(char);
   }
 
   render() {
@@ -12,7 +13,7 @@ class EmojiList extends React.Component {
           <button title={unicodeName}
                   className="emoji"
                   key={slug}
-                  onClick={() => this.copyEmoji(character)}>
+                  onClick={() => this.selectEmoji(character)}>
             {character}
           </button>
         ))}
