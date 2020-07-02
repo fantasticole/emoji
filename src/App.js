@@ -3,6 +3,7 @@ import React from 'react';
 import './styles/index.css';
 
 import EmojiList from './components/EmojiList';
+import Search from './components/Search';
 
 import {EMOJI_API_KEY} from './utils/key';
 
@@ -31,10 +32,27 @@ class App extends React.Component {
       )
   }
 
+  searchList = (e) => {
+    const {value} = e.target;
+    const searchUrl = `https://emoji-api.com/emojis?search=${value}&access_key=${EMOJI_API_KEY}`;
+
+    fetch(searchUrl)
+      .then(res => res.json())
+      .then(
+        (emojiList) => {
+          this.setState({emojiList});
+        },
+        (error) => {
+          this.setState({error});
+        }
+      )
+  }
+
   render() {
     return (
       <div className="app">
         <h1>Emoji List</h1>
+        <Search onSearch={this.searchList}/>
         <EmojiList emoji={this.state.emojiList} />
       </div>
     );
