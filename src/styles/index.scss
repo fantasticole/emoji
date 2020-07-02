@@ -6,14 +6,46 @@
     font-size: 2.5em;
   }
 
+  button {
+    transition: background 0.35s ease-in-out, color 0.35s ease-in-out;
+  }
+
   .search {
+    height: 45px;
+    position: relative;
+
     input {
       border-radius: 4px;
       box-sizing: border-box;
       font-family: monospace;
       font-size: 1.8em;
+      height: 100%;
       padding: 3px 5px;
       width: 100%;
+    }
+
+    .clear {
+      border-radius: 50%;
+      background: transparent;
+      border: none;
+      height: 35px;
+      font-size: 1.2em;
+      margin-top: 5px;
+      padding: 0 10px;
+      position: absolute;
+      right: 5px;
+      width: 35px;
+
+      &:active,
+      &:focus {
+        border: none;
+        outline: none;
+      }
+
+      &:hover {
+        color: #fff;
+        background: #000;
+      }
     }
   }
 

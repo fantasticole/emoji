@@ -18,6 +18,10 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    this.fetchAllEmoji();
+  }
+
+  fetchAllEmoji = () => {
     const listUrl = `https://emoji-api.com/emojis?access_key=${EMOJI_API_KEY}`;
 
     fetch(listUrl)
@@ -60,7 +64,7 @@ class App extends React.Component {
     return (
       <div className="app">
         <h1>Emoji List</h1>
-        <Search onSearch={this.searchList}/>
+        <Search onSearch={this.searchList} onClear={this.fetchAllEmoji}/>
         {
           emojiList.length ?
           <EmojiList emoji={emojiList} /> :
