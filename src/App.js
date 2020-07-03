@@ -15,6 +15,7 @@ class App extends React.Component {
     this.state = {
       emojiList: [],
       error: "",
+      search: "",
       selected: [],
     };
   }
@@ -87,11 +88,9 @@ class App extends React.Component {
       <div className="app">
         <h1>Emoji List</h1>
         <Search onSearch={this.searchList} onClear={this.fetchAllEmoji}/>
-        {
-          emojiList.length ?
-          <EmojiList emoji={emojiList} onSelect={this.addToSelection}/> :
-          <p>No results for "{search}"</p>
-        }
+        <EmojiList search={search}
+                   emoji={emojiList}
+                   onSelect={this.addToSelection}/>
         <Selection selected={selected}
                    removeEmoji={this.removeFromSelection}
                    clearGroup={this.clearSelected}/>

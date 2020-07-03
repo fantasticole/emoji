@@ -7,9 +7,11 @@ class EmojiList extends React.Component {
   }
 
   render() {
+    const {emoji, search} = this.props;
+
     return (
       <div className="list">
-        {this.props.emoji.map((e) => (
+        {emoji.map((e) => (
           <button title={e.unicodeName}
                   className="emoji"
                   key={e.slug}
@@ -17,6 +19,7 @@ class EmojiList extends React.Component {
             {e.character}
           </button>
         ))}
+        {!emoji.length && <p>No results for "{search}"</p>}
       </div>
     );
 
