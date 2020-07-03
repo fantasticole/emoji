@@ -95,6 +95,22 @@ body {
     position: fixed;
     width: 100vw;
 
+    button {
+      &:disabled {
+        cursor: default;
+
+        &:after {
+          background-color: rgba(0, 0, 0, 0.5);
+          content: "";
+          height: 100%;
+          left: 0;
+          position: absolute;
+          top: 0;
+          width: 100%;
+        }
+      }
+    }
+
     .copy,
     .save {
       background: transparent;
@@ -105,7 +121,7 @@ body {
       max-width: $icon-button-size;
       position: relative;
 
-      &:hover {
+      &:hover:not(:disabled) {
         background: #fff;
 
         .black {
@@ -182,7 +198,7 @@ body {
       color: #fff;
       margin: 0 1em;
 
-      &:hover {
+      &:hover:not(:disabled) {
         background: #fff;
         color: #000;
       }

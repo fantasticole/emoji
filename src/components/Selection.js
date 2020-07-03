@@ -10,9 +10,11 @@ import Modal from './Modal';
 class Selection extends React.Component {
   constructor(props) {
     super(props);
+    this.nameRef = React.createRef();
 
     this.state = {
       saving: false,
+      emojiString: "",
     };
   }
 
@@ -25,8 +27,14 @@ class Selection extends React.Component {
   saveSelected = () => {
     const chars = this.props.selected.map(({character}) => character);
     const emojiString = chars.join("");
-    console.log({emojiString});
-    this.setState({saving: true});
+    this.setState({saving: true, emojiString});
+  }
+
+  saveName = () => {
+    const name = this.nameRef.current.value;
+    const {emojiString} = this.state;
+    // localStorage.setItem(name, emojiString);
+    // this.closeModal();
   }
 
   closeModal = () => {
@@ -34,18 +42,21 @@ class Selection extends React.Component {
   }
 
   render() {
-    const {saving} = this.state;
+    const {saving, emojiString} = this.state;
+    const {selected} = this.props;
 
     return (
       <div className="selection">
         <button className="copy"
                 title="copy all selected"
+                disabled={!selected.length}
                 onClick={this.copySelected}>
           <img className="black" alt="" src={copyBlack}/>
           <img className="white" alt="" src={copyWhite}/>
         </button>
         <button className="save"
                 title="save selected group"
+                disabled={!selected.length}
                 onClick={this.saveSelected}>
           <img className="black" alt="" src={saveBlack}/>
           <img className="white" alt="" src={saveWhite}/>
@@ -62,10 +73,16 @@ class Selection extends React.Component {
         </div>
         <button className="clear"
                 title="clear all selected"
+                disabled={!selected.length}
                 onClick={this.props.clearGroup}>✕</button>
         {saving && (
           <Modal handleClose={this.closeModal}>
-            <p>Modal</p>
+            <h2>Save Selection:</h2>
+            <p>{emojiString}</p>
+            <input className="name"
+                   placeholder="name your selection"
+                   ref={this.nameRef} />
+            <button className="save" onClick={this.saveName}>save</button>
           </Modal>
         )}
       </div>

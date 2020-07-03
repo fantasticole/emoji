@@ -4,7 +4,7 @@ const Modal = ({ handleClose, children }) => (
   <div className="modal-fill">
     <div className="modal">
       {children}
-      <button onClick={handleClose}>close</button>
+      <button className="close" onClick={handleClose}>✕</button>
     </div>
   </div>
 );
