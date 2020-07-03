@@ -1,4 +1,7 @@
 import React from 'react';
+import GraphemeSplitter from 'grapheme-splitter';
+
+const splitter = new GraphemeSplitter();
 
 class EmojiList extends React.Component {
   selectEmoji = (emoji) => {
@@ -8,7 +11,8 @@ class EmojiList extends React.Component {
 
   selectGroup = (emojiGroup) => {
     navigator.clipboard.writeText(emojiGroup);
-    this.props.onSelect(emojiGroup.split(""));
+    const emojiArray = splitter.splitGraphemes(emojiGroup);
+    this.props.onSelect(emojiArray);
   }
 
   render() {
