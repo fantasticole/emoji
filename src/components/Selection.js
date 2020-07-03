@@ -76,13 +76,12 @@ class Selection extends React.Component {
                 disabled={!selected.length}
                 onClick={this.props.clearGroup}>✕</button>
         {saving && (
-          <Modal handleClose={this.closeModal}>
-            <h2>Save Selection:</h2>
-            <p>{emojiString}</p>
+          <Modal handleClose={this.closeModal} title="Save Selection">
+            <p className="selectedEmoji">{emojiString}</p>
             <input className="name"
                    placeholder="name your selection"
                    ref={this.nameRef} />
-            <button className="save" onClick={this.saveName}>save</button>
+            <button className="submit" onClick={this.saveName}>save</button>
           </Modal>
         )}
       </div>
