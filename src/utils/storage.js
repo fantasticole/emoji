@@ -4,7 +4,7 @@ export function getGroups() {
 	const groupsString = localStorage.getItem(EmojiPicker);
 	const groups = JSON.parse(groupsString);
 	// TODO: Add a try/catch.
-	return groups;
+	return groups ? groups : [];
 }
 
 export function saveGroup(name, characters) {
