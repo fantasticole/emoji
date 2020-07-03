@@ -7,6 +7,7 @@ import Search from './components/Search';
 import Selection from './components/Selection';
 
 import {EMOJI_API_KEY} from './utils/key';
+import {getGroups} from './utils/storage';
 
 class App extends React.Component {
   constructor(props) {
@@ -15,6 +16,7 @@ class App extends React.Component {
     this.state = {
       emojiList: [],
       error: "",
+      groups: [],
       search: "",
       selected: [],
     };
@@ -22,6 +24,7 @@ class App extends React.Component {
 
   componentDidMount() {
     this.fetchAllEmoji();
+    this.getLocalGroups();
   }
 
   fetchAllEmoji = () => {
@@ -37,6 +40,11 @@ class App extends React.Component {
           this.setState({error});
         }
       )
+  }
+
+  getLocalGroups = () => {
+    const groups = getGroups();
+    this.setState({ groups });
   }
 
   searchList = (e) => {
@@ -61,9 +69,9 @@ class App extends React.Component {
       )
   }
 
-  addToSelection = (emoji) => {
+  addToSelection = (emojiArr) => {
     this.setState(({selected}) => ({
-      selected: [...selected, emoji],
+      selected: [...selected, ...emojiArr],
     }));
   }
 
@@ -82,13 +90,14 @@ class App extends React.Component {
   }
 
   render() {
-    const {emojiList, search, selected} = this.state;
+    const {emojiList, groups, search, selected} = this.state;
 
     return (
       <div className="app">
         <h1>Emoji List</h1>
         <Search onSearch={this.searchList} onClear={this.fetchAllEmoji}/>
         <EmojiList search={search}
+                   groups={groups}
                    emoji={emojiList}
                    onSelect={this.addToSelection}/>
         <Selection selected={selected}

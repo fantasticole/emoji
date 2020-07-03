@@ -7,9 +7,9 @@ export function getGroups() {
 	return groups;
 }
 
-export function saveGroup(name, emojiString) {
+export function saveGroup(name, characters) {
 	const existingGroups = getGroups();
-	const allGroups = [...existingGroups, {[name]: emojiString}];
+	const allGroups = [...existingGroups, {name, characters}];
 	const groupString = JSON.stringify(allGroups);
 
 	localStorage.setItem(EmojiPicker, groupString);
