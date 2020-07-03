@@ -1,9 +1,11 @@
 import React from 'react';
 
-import copyBlack from '../assets/noun_copy.svg'
-import copyWhite from '../assets/noun_copy_white.svg'
-import saveBlack from '../assets/noun_save.svg'
-import saveWhite from '../assets/noun_save_white.svg'
+import copyBlack from '../assets/noun_copy.svg';
+import copyWhite from '../assets/noun_copy_white.svg';
+import saveBlack from '../assets/noun_save.svg';
+import saveWhite from '../assets/noun_save_white.svg';
+
+import {saveGroup} from '../utils/storage';
 
 import Modal from './Modal';
 
@@ -33,8 +35,8 @@ class Selection extends React.Component {
   saveName = () => {
     const name = this.nameRef.current.value;
     const {emojiString} = this.state;
-    // localStorage.setItem(name, emojiString);
-    // this.closeModal();
+    saveGroup(name, emojiString);
+    this.closeModal();
   }
 
   closeModal = () => {
