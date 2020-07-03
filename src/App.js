@@ -88,7 +88,7 @@ class App extends React.Component {
           <EmojiList emoji={emojiList} onSelect={this.addToSelection}/> :
           <p>No results for "{search}"</p>
         }
-        <Selection selected={selected} removeEmoji={this.removeFromSelection}/>
+        {selected.length && <Selection selected={selected} removeEmoji={this.removeFromSelection}/>}
       </div>
     );
   }
