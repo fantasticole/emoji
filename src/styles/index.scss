@@ -1,3 +1,5 @@
+$clear-button-dimension: 35px;
+
 body {
   margin: 0;
 }
@@ -30,34 +32,34 @@ body {
       border-radius: 4px;
       box-sizing: border-box;
       font-family: monospace;
-      font-size: 1.8em;
+      font-size: 28px;
       height: 100%;
       padding: 3px 5px;
       width: 100%;
     }
+  }
 
-    .clear {
-      border-radius: 50%;
-      background: transparent;
+  .clear {
+    border-radius: 50%;
+    background: transparent;
+    border: none;
+    height: $clear-button-dimension;
+    font-size: 1.2em;
+    margin-top: 5px;
+    padding: 0 10px;
+    position: absolute;
+    right: 5px;
+    width: $clear-button-dimension;
+
+    &:active,
+    &:focus {
       border: none;
-      height: 35px;
-      font-size: 1.2em;
-      margin-top: 5px;
-      padding: 0 10px;
-      position: absolute;
-      right: 5px;
-      width: 35px;
+      outline: none;
+    }
 
-      &:active,
-      &:focus {
-        border: none;
-        outline: none;
-      }
-
-      &:hover {
-        color: #fff;
-        background: #000;
-      }
+    &:hover {
+      color: #fff;
+      background: #000;
     }
   }
 
@@ -89,31 +91,36 @@ body {
   }
 
   .selection {
+    align-items: center;
     background: #000;
     bottom: 0;
+    box-sizing: border-box;
+    display: flex;
     left: 0;
-    height: 3.5em;
+    height: 55px;
     padding: 0;
-    padding-left: calc(10px + 4em);
     position: fixed;
     width: 100vw;
 
-    .copy {
-      background: transparent;
-      border: none;
+    .copy,
+    .clear {
       color: #fff;
-      font-family: monospace;
-      font-size: 1em;
-      height: 80%;
-      left: 10px;
-      position: absolute;
-      top: 10%;
-      width: 4em;
 
       &:hover {
         color: #000;
         background: #fff;
       }
+    }
+
+    .copy {
+      background: transparent;
+      border: none;
+      flex: 0 0;
+      font-family: monospace;
+      font-size: 1em;
+      height: 35px;
+      margin-left: 1em;
+      width: 4em;
 
       &:active,
       &:focus {
@@ -123,17 +130,19 @@ body {
     }
 
     .group {
+      display: inline-block;
       overflow-x: scroll;
       white-space: nowrap;
-      width: calc(100vw - 4em - 10px);
+      width: calc(100vw - 6.5em - 35px);
+      // width: calc(100vw - 6.5em - $clear-button-dimension);
     }
 
     .emoji{
       &:active,
       &:focus,
       &:hover {
-      background: transparent;
-    }
+        background: transparent;
+      }
 
       &:hover {
         &:after {
@@ -143,11 +152,15 @@ body {
           height: 100%;
           left: 2px;
           position: absolute;
-          top: 2px;
+          top: 1px;
           text-shadow: 0px 0px 3px #000;
           width: 100%;
         }
       }
+    }
+
+    .clear {
+      margin: 0 1em 0 .5em;
     }
   }
 }

@@ -21,6 +21,9 @@ class Selection extends React.Component {
             </button>
           ))}
         </div>
+        <button className="clear"
+                title="clear all selected"
+                onClick={this.props.clearGroup}>✕</button>
       </div>
     );
 

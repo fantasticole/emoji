@@ -76,6 +76,10 @@ class App extends React.Component {
     });
   }
 
+  clearSelected = (emoji) => {
+    this.setState({ selected: [] });
+  }
+
   render() {
     const {emojiList, search, selected} = this.state;
 
@@ -88,7 +92,9 @@ class App extends React.Component {
           <EmojiList emoji={emojiList} onSelect={this.addToSelection}/> :
           <p>No results for "{search}"</p>
         }
-        {selected.length && <Selection selected={selected} removeEmoji={this.removeFromSelection}/>}
+        <Selection selected={selected}
+                   removeEmoji={this.removeFromSelection}
+                   clearGroup={this.clearSelected}/>
       </div>
     );
   }
