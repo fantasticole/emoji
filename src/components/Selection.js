@@ -1,5 +1,8 @@
 import React from 'react';
 
+import copyBlack from '../assets/noun_copy.svg'
+import copyWhite from '../assets/noun_copy_white.svg'
+
 class Selection extends React.Component {
   copySelected = () => {
     const chars = this.props.selected.map(({character}) => character);
@@ -10,7 +13,12 @@ class Selection extends React.Component {
   render() {
     return (
       <div className="selection">
-        <button className="copy" onClick={this.copySelected}>copy</button>
+        <button className="copy"
+                title="copy all selected"
+                onClick={this.copySelected}>
+          <img className="black" alt="" src={copyBlack}/>
+          <img className="white" alt="" src={copyWhite}/>
+        </button>
         <div className="group">
           {this.props.selected.map(({character, slug, unicodeName}, i) => (
             <button title={`delete ${unicodeName} from selected group`}

@@ -1,4 +1,4 @@
-$clear-button-dimension: 35px;
+$icon-button-size: 35px;
 
 body {
   margin: 0;
@@ -14,11 +14,12 @@ body {
   }
 
   button {
+    border: none;
+    cursor: pointer;
     transition: background 0.35s ease-in-out, color 0.35s ease-in-out;
 
     &:active,
     &:focus {
-      background: #e6e6e6;
       border: none;
       outline: none;
     }
@@ -42,20 +43,13 @@ body {
   .clear {
     border-radius: 50%;
     background: transparent;
-    border: none;
-    height: $clear-button-dimension;
+    height: $icon-button-size;
     font-size: 1.2em;
     margin-top: 5px;
     padding: 0 10px;
     position: absolute;
     right: 5px;
-    width: $clear-button-dimension;
-
-    &:active,
-    &:focus {
-      border: none;
-      outline: none;
-    }
+    width: $icon-button-size;
 
     &:hover {
       color: #fff;
@@ -70,7 +64,6 @@ body {
   .emoji {
     align-content: center;
     background: transparent;
-    border: none;
     border-radius: 4px;
     display: inline-block;;
     font-size: 1.8em;
@@ -102,30 +95,41 @@ body {
     position: fixed;
     width: 100vw;
 
-    .copy,
-    .clear {
-      color: #fff;
-
-      &:hover {
-        color: #000;
-        background: #fff;
-      }
-    }
-
     .copy {
       background: transparent;
-      border: none;
-      flex: 0 0;
-      font-family: monospace;
-      font-size: 1em;
-      height: 35px;
+      border-radius: 50%;
+      flex: 1;
+      height: $icon-button-size;
       margin-left: 1em;
-      width: 4em;
+      max-width: $icon-button-size;
+      position: relative;
 
-      &:active,
-      &:focus {
-        border: none;
-        outline: none;
+      &:hover {
+        background: #fff;
+
+        .black {
+          opacity: 1;
+        }
+
+        .white {
+          opacity: 0;
+        }
+      }
+
+      .black {
+        opacity: 0;
+      }
+
+      .white {
+        opacity: 1;
+      }
+
+      img {
+        height: 30px;
+        left: 7px;
+        position: absolute;
+        top: 5px;
+        transition: opacity 0.35s ease-in-out;
       }
     }
 
@@ -133,34 +137,46 @@ body {
       display: inline-block;
       overflow-x: scroll;
       white-space: nowrap;
-      width: calc(100vw - 6.5em - 35px);
-      // width: calc(100vw - 6.5em - $clear-button-dimension);
+      width: calc(100vw - 4em - 70px);
+      // width: calc(100vw - 4em - (2 * $icon-button-size));
     }
 
-    .emoji{
+    .emoji {
       &:active,
       &:focus,
       &:hover {
         background: transparent;
       }
 
+      &:after {
+        color: #fff;
+        content: "✕";
+        font-size: 1.5em;
+        height: 100%;
+        left: 2px;
+        opacity: 0;
+        position: absolute;
+        text-shadow: 0px 0px 3px #000;
+        top: 1px;
+        transition: opacity 0.35s ease-in-out;
+        width: 100%;
+      }
+
       &:hover {
         &:after {
-          color: #fff;
-          content: "✕";
-          font-size: 1.5em;
-          height: 100%;
-          left: 2px;
-          position: absolute;
-          top: 1px;
-          text-shadow: 0px 0px 3px #000;
-          width: 100%;
+          opacity: 1;
         }
       }
     }
 
     .clear {
-      margin: 0 1em 0 .5em;
+      color: #fff;
+      margin: 0 1em;
+
+      &:hover {
+        background: #fff;
+        color: #000;
+      }
     }
   }
 }
