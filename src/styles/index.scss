@@ -95,12 +95,13 @@ body {
     position: fixed;
     width: 100vw;
 
-    .copy {
+    .copy,
+    .save {
       background: transparent;
       border-radius: 50%;
       flex: 1;
       height: $icon-button-size;
-      margin-left: 1em;
+      margin: 0 1em;
       max-width: $icon-button-size;
       position: relative;
 
@@ -133,12 +134,20 @@ body {
       }
     }
 
+    .save {
+      margin-left: 0;
+
+      img {
+        stroke-width: 2;
+      }
+    }
+
     .group {
       display: inline-block;
       overflow-x: scroll;
       white-space: nowrap;
-      width: calc(100vw - 4em - 70px);
-      // width: calc(100vw - 4em - (2 * $icon-button-size));
+      width: calc(100vw - 5em - 105px);
+      // width: calc(100vw - 4em - (3 * $icon-button-size));
     }
 
     .emoji {
