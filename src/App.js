@@ -7,7 +7,7 @@ import Search from './components/Search';
 import Selection from './components/Selection';
 
 import {EMOJI_API_KEY} from './utils/key';
-import {getGroups} from './utils/storage';
+import {getGroups, saveGroup} from './utils/storage';
 import emoji from './utils/emoji';
 
 const stringifiedList = emoji.map(e => ({
@@ -112,6 +112,11 @@ class App extends React.Component {
     this.setState({ selected: [] });
   }
 
+  saveSelection = (name, emojiString) => {
+    saveGroup(name, emojiString);
+    this.getSavedGroups();
+  }
+
   render() {
     const {allEmoji, emojiList, groups, search, selected} = this.state;
     const filteredEmoji = search.length ? emojiList : allEmoji;
@@ -125,6 +130,7 @@ class App extends React.Component {
                    emoji={filteredEmoji}
                    onSelect={this.addToSelection}/>
         <Selection selected={selected}
+                   onSave={this.saveSelection}
                    removeEmoji={this.removeFromSelection}
                    clearGroup={this.clearSelected}/>
       </div>

@@ -5,8 +5,6 @@ import copyWhite from '../assets/noun_copy_white.svg';
 import saveBlack from '../assets/noun_save.svg';
 import saveWhite from '../assets/noun_save_white.svg';
 
-import {saveGroup} from '../utils/storage';
-
 import Modal from './Modal';
 
 class Selection extends React.Component {
@@ -35,7 +33,7 @@ class Selection extends React.Component {
   saveName = () => {
     const name = this.nameRef.current.value;
     const {emojiString} = this.state;
-    saveGroup(name, emojiString);
+    this.props.onSave(name, emojiString);
     this.closeModal();
   }
 
