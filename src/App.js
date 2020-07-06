@@ -21,8 +21,9 @@ class App extends React.Component {
 
     this.state = {
       allEmoji: [...stringifiedList],
-      emojiList: [],
+      filteredEmoji: [],
       error: "",
+      filteredGroups: [],
       groups: [],
       search: "",
       selected: [],
@@ -55,8 +56,11 @@ class App extends React.Component {
   }
 
   clearSearch = () => {
-    this.setState({search: "", emojiList: []});
-    this.getSavedGroups();
+    this.setState({
+      search: "",
+      filteredEmoji: [],
+      filteredGroups: [],
+    });
   }
 
   getSavedGroups = () => {
@@ -67,11 +71,11 @@ class App extends React.Component {
   searchList = (e) => {
     const search = e.target.value.toLowerCase();
 
-    const emojiList = this.state.allEmoji.filter(emojiObject => emojiObject.stringified.includes(search));
+    const filteredEmoji = this.state.allEmoji.filter(emojiObject => emojiObject.stringified.includes(search));
 
-    const groups = this.state.groups.filter(({name, characters}) => `${name}${characters}`.includes(search));
+    const filteredGroups = this.state.groups.filter(({name, characters}) => `${name}${characters}`.includes(search));
 
-    this.setState({ search, emojiList, groups });
+    this.setState({ search, filteredEmoji, filteredGroups });
     // const searchUrl = `https://emoji-api.com/emojis?search=${value}&access_key=${EMOJI_API_KEY}`;
 
     // fetch(searchUrl)
@@ -80,7 +84,7 @@ class App extends React.Component {
     //     (list) => {
     //       this.setState({
     //         search: value,
-    //         emojiList: list ? list : [],
+    //         filteredEmoji: list ? list : [],
     //       });
     //     },
     //     (error) => {
@@ -118,16 +122,24 @@ class App extends React.Component {
   }
 
   render() {
-    const {allEmoji, emojiList, groups, search, selected} = this.state;
-    const filteredEmoji = search.length ? emojiList : allEmoji;
+    const {
+      allEmoji,
+      filteredEmoji,
+      filteredGroups,
+      groups,
+      search,
+      selected,
+    } = this.state;
+    const emojiList = search.length ? filteredEmoji : allEmoji;
+    const groupList = search.length ? filteredGroups : groups;
 
     return (
       <div className="app">
         <h1>Emoji List</h1>
         <Search onSearch={this.searchList} onClear={this.clearSearch}/>
         <EmojiList search={search}
-                   groups={groups}
-                   emoji={filteredEmoji}
+                   groups={groupList}
+                   emoji={emojiList}
                    onSelect={this.addToSelection}/>
         <Selection selected={selected}
                    onSave={this.saveSelection}
