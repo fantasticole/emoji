@@ -8,12 +8,19 @@ import Selection from './components/Selection';
 
 import {EMOJI_API_KEY} from './utils/key';
 import {getGroups} from './utils/storage';
+import emoji from './utils/emoji';
+
+const stringifiedList = emoji.map(e => ({
+    ...e,
+    stringified: JSON.stringify(Object.values(e)).toLowerCase(),
+  }));
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      allEmoji: [...stringifiedList],
       emojiList: [],
       error: "",
       groups: [],
@@ -23,8 +30,8 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchAllEmoji();
-    this.getLocalGroups();
+    // this.fetchAllEmoji();
+    this.getSavedGroups();
   }
 
   fetchAllEmoji = () => {
@@ -33,40 +40,53 @@ class App extends React.Component {
     fetch(listUrl)
       .then(res => res.json())
       .then(
-        (emojiList) => {
-          this.setState({emojiList});
+        (emoji) => {
+          const allEmoji = emoji.map(e => ({
+            ...e,
+            stringified: JSON.stringify(Object.values(e)).toLowerCase(),
+          }));
+
+          this.setState({allEmoji});
         },
         (error) => {
           this.setState({error});
         }
-      )
+      );
   }
 
-  getLocalGroups = () => {
+  resetList = () => {
+    this.setState({search: "", emojiList: []});
+  }
+
+  getSavedGroups = () => {
+    // TODO: trigger this regularly. when selected changes?
     const groups = getGroups();
     this.setState({ groups });
   }
 
   searchList = (e) => {
-    const {value} = e.target;
-    const searchUrl = `https://emoji-api.com/emojis?search=${value}&access_key=${EMOJI_API_KEY}`;
+    const search = e.target.value.toLowerCase();
+    const emojiList = this.state.allEmoji.filter(emojiObject => emojiObject.stringified.includes(search));
 
-    fetch(searchUrl)
-      .then(res => res.json())
-      .then(
-        (list) => {
-          this.setState({
-            search: value,
-            emojiList: list ? list : [],
-          });
-        },
-        (error) => {
-          this.setState({
-            search: value,
-            error,
-          });
-        }
-      )
+    this.setState({ search, emojiList });
+    // const searchUrl = `https://emoji-api.com/emojis?search=${value}&access_key=${EMOJI_API_KEY}`;
+
+    // fetch(searchUrl)
+    //   .then(res => res.json())
+    //   .then(
+    //     (list) => {
+    //       this.setState({
+    //         search: value,
+    //         emojiList: list ? list : [],
+    //       });
+    //     },
+    //     (error) => {
+    //       this.setState({
+    //         search: value,
+    //         error,
+    //       });
+    //     }
+    //   );
   }
 
   addToSelection = (emojiArr) => {
@@ -85,20 +105,21 @@ class App extends React.Component {
     });
   }
 
-  clearSelected = (emoji) => {
+  clearSelected = () => {
     this.setState({ selected: [] });
   }
 
   render() {
-    const {emojiList, groups, search, selected} = this.state;
+    const {allEmoji, emojiList, groups, search, selected} = this.state;
+    const filteredEmoji = search.length ? emojiList : allEmoji;
 
     return (
       <div className="app">
         <h1>Emoji List</h1>
-        <Search onSearch={this.searchList} onClear={this.fetchAllEmoji}/>
+        <Search onSearch={this.searchList} onClear={this.resetList}/>
         <EmojiList search={search}
                    groups={groups}
-                   emoji={emojiList}
+                   emoji={filteredEmoji}
                    onSelect={this.addToSelection}/>
         <Selection selected={selected}
                    removeEmoji={this.removeFromSelection}
