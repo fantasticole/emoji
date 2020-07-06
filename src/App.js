@@ -130,6 +130,7 @@ class App extends React.Component {
       search,
       selected,
     } = this.state;
+
     const emojiList = search.length ? filteredEmoji : allEmoji;
     const groupList = search.length ? filteredGroups : groups;
 
@@ -139,6 +140,7 @@ class App extends React.Component {
         <Search onSearch={this.searchList} onClear={this.clearSearch}/>
         <EmojiList search={search}
                    groups={groupList}
+                   allEmoji={allEmoji}
                    emoji={emojiList}
                    onSelect={this.addToSelection}/>
         <Selection selected={selected}

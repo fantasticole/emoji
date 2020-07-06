@@ -11,7 +11,11 @@ class EmojiList extends React.Component {
 
   selectGroup = (emojiGroup) => {
     navigator.clipboard.writeText(emojiGroup);
-    const emojiArray = splitter.splitGraphemes(emojiGroup);
+    const emojiArray = splitter.splitGraphemes(emojiGroup).map(
+      char => (
+        this.props.allEmoji.find(({character}) => character === char)
+        )
+      );
     this.props.onSelect(emojiArray);
   }
 
@@ -23,7 +27,7 @@ class EmojiList extends React.Component {
         <div className="saved">
           {groups.map(({name, characters}, i) => (
             <button title={name}
-                    className="group"
+                    className="emoji group"
                     key={`${name}${i}`}
                     onClick={() => this.selectGroup(characters)}>
               {characters}

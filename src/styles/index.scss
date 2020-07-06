@@ -47,7 +47,7 @@ body {
     }
 
     .clear {
-      margin-top: 5px;
+      margin-top: 3px;
     }
   }
 
@@ -70,6 +70,15 @@ body {
 
   .list {
     margin-top: 1em;
+  }
+
+  .saved {
+    border: 1px dotted #e6e6e6;
+
+    .group {
+      padding: 0 .5em;
+      width: auto;
+    }
   }
 
   .emoji {
