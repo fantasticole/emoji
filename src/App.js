@@ -54,21 +54,24 @@ class App extends React.Component {
       );
   }
 
-  resetList = () => {
+  clearSearch = () => {
     this.setState({search: "", emojiList: []});
+    this.getSavedGroups();
   }
 
   getSavedGroups = () => {
-    // TODO: trigger this regularly. when selected changes?
     const groups = getGroups();
     this.setState({ groups });
   }
 
   searchList = (e) => {
     const search = e.target.value.toLowerCase();
+
     const emojiList = this.state.allEmoji.filter(emojiObject => emojiObject.stringified.includes(search));
 
-    this.setState({ search, emojiList });
+    const groups = this.state.groups.filter(({name, characters}) => `${name}${characters}`.includes(search));
+
+    this.setState({ search, emojiList, groups });
     // const searchUrl = `https://emoji-api.com/emojis?search=${value}&access_key=${EMOJI_API_KEY}`;
 
     // fetch(searchUrl)
@@ -116,7 +119,7 @@ class App extends React.Component {
     return (
       <div className="app">
         <h1>Emoji List</h1>
-        <Search onSearch={this.searchList} onClear={this.resetList}/>
+        <Search onSearch={this.searchList} onClear={this.clearSearch}/>
         <EmojiList search={search}
                    groups={groups}
                    emoji={filteredEmoji}
